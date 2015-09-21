@@ -1,0 +1,116 @@
+
+/*tree similar or not*/
+#include<stdio.h>
+struct node
+{
+struct node *left;
+int no;
+struct node *right;
+};
+typedef struct node n;
+n *root=NULL,*root1=NULL;
+void insert(n *,n *);
+void in(n *);
+void in1(n *);
+void compare();
+int a[20],c[20],b=0,f=0,g=0,d=0;
+main()
+{
+n *arr,*cur;
+int i,ch,m;
+printf("enter 1 for inserting 1st tree....\n.2 for inserting 2nd tree....\n...3 for compare ...default exit..\n");
+while(1)
+{
+printf("enter the choice..\n");
+scanf("%d",&ch);
+switch(ch)
+{
+case 1:
+printf("inserting 1st..\n");
+arr=(n *)malloc(sizeof(n));
+printf("enter the no...\n");
+scanf("%d",&m);
+a[b++]=m;
+arr->no=m;
+arr->left=NULL;
+arr->right=NULL;
+if(root==NULL)
+root=arr;
+else
+insert(root,arr);
+break;
+case 2:
+printf("inserting 2nd...\n");
+arr=(n *)malloc(sizeof(n));
+printf("enter the no...\n");
+scanf("%d",&m);
+c[d++]=m;
+arr->no=m;
+arr->no=m;
+arr->left=NULL;
+arr->right=NULL;
+if(root1==NULL)
+root1=arr;
+else
+insert(root1,arr);
+break;
+case 3:
+in(root);
+printf("\n");
+in1(root1);
+while((b-1)!=0||(d-1)!=0)
+{
+if(a[f++]!=c[f])
+{
+g++;
+break;
+}
+b--;
+d--;
+}
+if(g==0)
+printf("similar...\n");
+else
+printf("not...\n");
+break;
+default:
+exit(1);
+}
+}
+}
+void in1(n *root1)
+{
+if(root1!=NULL)
+{
+in(root1->left);
+printf("%d",root1->no);
+
+in(root1->right);
+}
+}
+void in(n *root)
+{
+if(root!=NULL)
+{
+in(root->left);
+printf("%d",root->no);
+in(root->right);
+}
+}
+void insert(n *root,n *arr)
+{
+if(arr->no<root->no)
+{
+if(root->left==NULL)
+root->left=arr;
+else
+insert(root->left,arr);
+}
+else
+{
+if(root->right==NULL)
+root->right=arr;
+else
+insert(root->right,arr);
+}
+}

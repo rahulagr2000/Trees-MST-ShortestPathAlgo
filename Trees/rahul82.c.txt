@@ -1,0 +1,45 @@
+
+#include<stdio.h>
+struct node
+{
+char c;
+struct node *left;
+struct node *right;
+};
+typedef struct node n;
+n *root=NULL;
+void in(n *);
+main()
+{
+n *arr,*cur,*temp[20];
+char a[30],sym;
+int i,j,m;
+printf("enter the postfix expression...\n ");
+scanf("%s",a);
+for(i=j=0;(sym=a[i])!=NULL;i++)
+{
+arr=(n *)malloc(sizeof(n));
+arr->c=sym;
+arr->left=arr->right=NULL;
+if(sym>='a'&&sym<='z')
+temp[j++]=arr;
+else
+{
+arr->right=temp[--j];
+arr->left=temp[--j];
+temp[j++]=arr;
+}
+}
+root=temp[--j];
+in(root);
+}
+void in(n *root)
+{
+if(root!=NULL)
+{
+in(root->left);
+printf("%c",root->c);
+in(root->right);
+}
+}
+

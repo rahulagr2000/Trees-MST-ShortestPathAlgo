@@ -1,0 +1,101 @@
+
+#include<stdio.h>
+#include<string.h>
+#include<ctype.h>
+
+struct NODE
+{
+int n;
+struct NODE *rlink;
+struct NODE *llink;
+};
+
+typedef struct NODE* node;
+
+node insert(int item,node root)
+{
+node temp,cur,prev;
+char direction[10];
+int i;
+temp=(struct NODE*)malloc(sizeof(struct NODE));
+temp->n=item;
+temp->llink=temp->rlink=NULL;
+if(root==NULL)
+{
+return temp;
+}
+printf("DIRECTION??\t");
+scanf("%s",direction);
+prev=NULL;
+cur=root;
+for(i=0;i<strlen(direction);i++)
+{
+if(cur==NULL) break;
+prev=cur;
+if(direction[i]=='l')
+
+        cur=cur->llink;
+else cur=cur->rlink;
+}
+if(cur!=NULL||i!=strlen(direction))
+{
+printf("Insertion not possible");
+free(temp);
+return root;
+}
+if(direction[i-1]=='l')
+        prev->llink=temp;
+else prev->rlink=temp;
+return root;
+}
+
+void preorder(node root)
+{
+if(root==NULL) return;
+printf("%d  ",root->n);
+preorder(root->llink);
+preorder(root->rlink);
+}
+
+void inorder(node root)
+{
+if(root==NULL) return;
+inorder(root->llink);
+printf("%d",root->n);
+inorder(root->rlink);
+}
+
+void postorder(node root)
+{
+if(root==NULL) return;
+
+postorder(root->llink);
+postorder(root->rlink);
+printf("%d",root->n);
+}
+
+main()
+{
+int n,cnt=0;
+node *root=NULL;
+printf("\nEnter the elements of the binary tree till -1\n");
+while(n!=-1)
+{
+if((cnt++)==0)
+        printf("\nEnter root node number:\t");
+else
+        printf("\nEnter node number:\t");
+scanf("%d",&n);
+if(n!=-1)
+        root=insert(n,root);
+}
+printf("\nPREORDER:\n");
+preorder(root);
+printf("\nINORDER:\n");
+inorder(root);
+printf("\nPOSTORDER:\n");
+postorder(root);
+printf("\n");
+
+}
+
